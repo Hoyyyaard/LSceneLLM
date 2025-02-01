@@ -1,0 +1,6 @@
+#!/bin/bash
+
+/home/admin/micromamba/envs/ll3da/bin/python clip_server.py --out_dir tmp&
+
+# ./gaps/bin/x86_64/osview region_segmentations/region*.ply openscene_features/RP*.npy -v -tcp
+./gaps/bin/x86_64/osview /mnt/nfs/share/datasets/scannet/scans/scene0011_00/scene0011_00_vh_clean_2.ply /mnt/nfs/share/Adaptive/openscene_dense_fts_distill_axis_align/scene0011_00_dense_fts.npy -v -tcp
