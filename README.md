@@ -78,5 +78,4 @@ If you find our work useful in your research, please consider citing:
 ```
 
 
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=Hoyyyaard/LSceneLLM&type=Date)](https://star-history.com/#Hoyyyaard/LSceneLLM&Date)
+<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwX3pqa3lmSW9YcGN0VVZDOWRvaTZLYnBwUFZtS0l4TTB2WUtuTg==#Hoyyyaard/LSceneLLM&Date" frameBorder="0"></iframe>
