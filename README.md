@@ -1,5 +1,6 @@
 # LSceneLLM: Enhancing Large 3D Scene Understanding Using Adaptive Visual Preferences
 
+<h2 style="text-align: center;">CVPR 2025</h2>
 
 [[📖 arXiv]](https://arxiv.org/abs/2412.01292) 
 [[🤖 model]](https://huggingface.co/Hoyard/LSceneLLM)
@@ -10,6 +11,7 @@ This repository contains PyTorch implementation for __LSceneLLM: Enhancing Large
 In 3D scenes, visual information is often complex and abundant, especially in cross-room scenes and outdoor scenes. We propose a solution that reduces computational load while preserving detailed information by using the attention map of LLM to select tokens of interest, effectively integrating both coarse-grained and fine-grained visual information, and a cross-room 3D large scene understanding benchmark.
 
 ## 🔥News
+✅「**2025-02-27**」 LSceneLLM is accepted by CVPR 2025 ! \
 ✅「**2025-01-31**」 Inference Code, Pretrained weight, Annotation of XR-Scene released.
 
 
