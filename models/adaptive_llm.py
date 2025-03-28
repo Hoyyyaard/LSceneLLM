@@ -327,23 +327,11 @@ class AdaptiveLLM(nn.Module):
             lora_module_names.remove('lm_head')
         return list(lora_module_names)
     
-    def load_model_from_ckpt(self, bert_ckpt_path, args, finetune=False):
+    def load_model_from_ckpt(self, bert_ckpt_path, args, finetune=True):
         map_location = {'cuda:%d' % 0: 'cuda:%d' % args.local_rank}
         ckpt = torch.load(bert_ckpt_path, map_location='cpu')
         
-        # tmp_ckpt = {k:v for k,v in ckpt['base_model'].items() if not k.find('llm.') != -1}
-        # ckpt = {'base_model': tmp_ckpt}
-        
-        if not finetune:
-            base_ckpt = {k.replace("module.", ""): v for k, v in ckpt['base_model'].items()}
-            for k in list(base_ckpt.keys()):
-                if k.startswith('transformer_q') and not k.startswith('transformer_q.cls_head'):
-                    base_ckpt[k.replace("transformer_q.", "encoder.")] = base_ckpt[k]
-                elif k.startswith('base_model'):
-                    base_ckpt[k.replace("base_model.", "encoder.")] = base_ckpt[k]
-                del base_ckpt[k]
-        else:
-            base_ckpt = ckpt['base_model']
+        base_ckpt = ckpt['base_model'] if 'base_model' in ckpt else ckpt
             
         # uclip2
         # base_ckpt = {k.replace("module.point_encoder.", "encoder."): v for k, v in ckpt['state_dict'].items() if k.find('point_encoder') != -1}
@@ -479,8 +467,6 @@ class AdaptiveLLM(nn.Module):
             
             gradient_mask = data_dict['gradient_mask']
             
-            # if os.getenv('ADD_SCENE_LOSS','False') == 'True':
-            # Add <scene> and </scene> logits to supervision
             scene_token_start_index = self.llm.config.scene_token_start_index
             start_scene_logits = outputs.logits[:, scene_token_start_index-1-1]
             end_scene_logits = outputs.logits[:, scene_token_start_index-1-1+self.VISION_TOKEN_NUM+1]
@@ -495,12 +481,6 @@ class AdaptiveLLM(nn.Module):
                 target = new_input_ids,
                 mask = new_gradient_mask.to(self.dtype),
             )
-            # else:
-            # loss = self._loss_caption(
-            #     logits = outputs.logits[:, -(gradient_mask.shape[1]+1): -1],
-            #     target = input_ids,
-            #     mask = gradient_mask.to(self.dtype),
-            # )
             
             return loss
         
