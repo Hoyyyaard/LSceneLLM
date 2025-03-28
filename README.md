@@ -11,8 +11,9 @@ This repository contains PyTorch implementation for __LSceneLLM: Enhancing Large
 In 3D scenes, visual information is often complex and abundant, especially in cross-room scenes and outdoor scenes. We propose a solution that reduces computational load while preserving detailed information by using the attention map of LLM to select tokens of interest, effectively integrating both coarse-grained and fine-grained visual information, and a cross-room 3D large scene understanding benchmark.
 
 ## 🔥News
+✅「**2025-03-28**」 Training demo code released. \
 ✅「**2025-02-27**」 LSceneLLM is accepted by CVPR 2025 ! \
-✅「**2025-01-31**」 Inference Code, Pretrained weight, Annotation of XR-Scene released.
+✅「**2025-01-31**」 Inference code, Pretrained weight, Annotation of XR-Scene released.
 
 
 ## 🔧Usage
@@ -46,9 +47,6 @@ pip install --upgrade https://github.com/unlimblue/KNN_CUDA/releases/download/0.
 ```
 
 ### Dataset
-#### XR-Scene
-XR-Scene is available at *data/SceneVerse/HM3D/annotations* 
-
 #### Preprocess HM3D-OpenScene Features
 - Install [OpenScene](https://github.com/pengsongyou/openscene) requirement
 - Download HM3D scan data from [SceneVerse](https://scene-verse.github.io/) and put it into *data/SceneVerse/HM3D/[qa, caption, planning]*
@@ -63,6 +61,13 @@ To eval the pretrained model on XR-QA, simply run:
 ```
 bash scripts/slurm.sh # In cluster
 bash scripts/eval.sh
+```
+
+### Training of XR-QA
+We trained out LSceneLLM on LL3DA datas and XR-Scene. User can process any 3D datasets based on Preprocess HM3D-OpenScene Features section. We provide demo code for training on XR-QA, simply run: 
+```
+bash scripts/slurm.sh # In cluster
+bash scripts/train.sh
 ```
 
 ## License

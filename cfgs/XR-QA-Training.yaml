@@ -1,0 +1,64 @@
+optimizer : {
+  type: Adam,
+  kwargs: {
+  lr : 0.00001, 
+  weight_decay : 0,
+
+}}
+
+scheduler: {
+  type: CosLR,
+  kwargs: {
+    epochs: 5,
+    initial_epochs : 0.1
+}}
+
+dataset : {
+  train : { _base_: cfgs/HD_Hm3dQADataset.yaml, 
+            others: {subset: 'train', npoints: 1024, whole: True, shuffle: True, vocab: 'ckpts/Llama-2-7b-hf',
+            DATASETS: 'hd_all_scene_qa'
+          }},
+  val : { _base_: cfgs/HD_Hm3dQADataset.yaml, 
+            others: {subset: 'val', shuffle: False, vocab: 'ckpts/Llama-2-7b-hf',
+            DATASETS: 'hd_all_scene_qa'
+        }}}
+model : {
+  NAME: Openscene, 
+
+  DTYPE: FP32,
+  distributed: FSDP,  # DDP, FSDP
+  quantization: False, 
+
+  FLEX: True,
+  DENSE_TOKEN_NUM: 4,
+  DENSE_TOKEN_SELECT_THRESHOLD: 96,
+  START_FLEX_LAYER: 8,
+  FLEX_WARM_UP: -1,
+
+  trans_dim: 768,
+
+  use_openscene: True,
+  N_POINTS: 40000,
+  NUM_GROUP: 128,
+  GROUP_SIZE: 384, 
+
+  REGION_N_POINTS: 8192,
+  REGION_NUM_GROUP : 8,
+  REGION_GROUP_SIZE: 1024,
+
+  INSTANCE_N_POINTS: 1024,
+  INSTANCE_NUM_GROUP: 1,
+  INSTANCE_GROUP_SIZE: 1024,
+
+  openscene_features_base_dir: data/SceneVerse/OpenScene_Scan_Features
+}
+
+finetune : True
+total_bs : 12
+step_per_update : 1
+max_epoch : 5
+
+consider_metric: CDL1
+
+
+

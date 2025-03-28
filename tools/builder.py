@@ -188,20 +188,10 @@ def save_checkpoint(base_model, optimizer, epoch, metrics, best_metrics, prefix,
         print_log(f"Save checkpoint at {os.path.join(args.experiment_path, prefix + '.pth')}", logger = logger)
 
 def save_checkpoint_pretrain_llm(base_model, optimizer, epoch, metrics, best_metrics, prefix, args, logger = None, finetune=False):
-    # FIXME
-    finetune = True
-    if finetune:
-        torch.distributed.barrier()
-        llm = base_model.llm
-        full_state_dict_config = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
-        with FSDP.state_dict_type(llm, StateDictType.FULL_STATE_DICT, full_state_dict_config):
-            llm_weight_ckpt = llm.state_dict()
-        # torch.save(all_weight_ckpt, os.path.join(args.experiment_path, 'llm_{}'.format(prefix) + '.pth'), _use_new_zipfile_serialization=False)
-            # print_log(llm_weight_ckpt , logger = logger)
-    else:
-        full_state_dict_config = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
-        with FSDP.state_dict_type(base_model, StateDictType.FULL_STATE_DICT, full_state_dict_config):
-            all_weight_ckpt = base_model.state_dict()
+    
+    full_state_dict_config = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
+    with FSDP.state_dict_type(base_model, StateDictType.FULL_STATE_DICT, full_state_dict_config):
+        all_weight_ckpt = base_model.state_dict()
     
     # torch.save(all_weight_ckpt,os.path.join(args.experiment_path, 'all_{}'.format(prefix) + '.pth'), _use_new_zipfile_serialization=False)
     
