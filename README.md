@@ -1,10 +1,13 @@
 # LSceneLLM: Enhancing Large 3D Scene Understanding Using Adaptive Visual Preferences
 
-<h2 style="text-align: center;">CVPR 2025</h2>
+<h2 style="text-align: center;">CVPR 2025
+<a href="https://www.easycounter.com/"><img src="https://www.easycounter.com/counter.php?hoyyyaard" border="0" alt="Hit Counter"></a> <br><a href="https://www.easycounter.com/"></a>
+</h2>
 
 [[📖 arXiv]](https://arxiv.org/abs/2412.01292) 
 [[🤖 model]](https://huggingface.co/Hoyard/LSceneLLM)
 [[📑 dataset]](https://huggingface.co/datasets/Hoyard/XR-Scene)
+
 
 This repository contains PyTorch implementation for __LSceneLLM: Enhancing Large 3D Scene Understanding Using Adaptive Visual Preferences__ 
 
@@ -14,6 +17,7 @@ In 3D scenes, visual information is often complex and abundant, especially in cr
 ✅「**2025-03-28**」 Training demo code released. \
 ✅「**2025-02-27**」 LSceneLLM is accepted by CVPR 2025 ! \
 ✅「**2025-01-31**」 Inference code, Pretrained weight, Annotation of XR-Scene released.
+
 
 
 ## 🔧Usage
